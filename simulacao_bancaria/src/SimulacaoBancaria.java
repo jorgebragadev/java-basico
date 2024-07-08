@@ -5,32 +5,22 @@ public class SimulacaoBancaria {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         double saldo = 0;
-        boolean continuar = true;
 
-        while (continuar) {
-            System.out.println("Menu:");
-            System.out.println("1. Depositar");
-            System.out.println("2. Sacar");
-            System.out.println("3. Consultar Saldo");
-            System.out.println("0. Encerrar");
-            System.out.print("Escolha uma opção: ");
+        while (true) {
             int opcao = scanner.nextInt();
 
             switch (opcao) {
                 case 1:
-                    System.out.print("Digite o valor a ser depositado: ");
-                    double valorDeposito = scanner.nextDouble();
-                    saldo += valorDeposito;
+                    saldo += scanner.nextDouble();
                     System.out.printf("Saldo atual: %.1f\n", saldo);
                     break;
                 case 2:
-                    System.out.print("Digite o valor a ser sacado: ");
-                    double valorSaque = scanner.nextDouble();
-                    if (saldo >= valorSaque) {
-                        saldo -= valorSaque;
-                        System.out.printf("Saldo atual: %.1f\n", saldo);
-                    } else {
+                    double saque = scanner.nextDouble();
+                    if (saque > saldo) {
                         System.out.println("Saldo insuficiente.");
+                    } else {
+                        saldo -= saque;
+                        System.out.printf("Saldo atual: %.1f\n", saldo);
                     }
                     break;
                 case 3:
@@ -38,12 +28,12 @@ public class SimulacaoBancaria {
                     break;
                 case 0:
                     System.out.println("Programa encerrado.");
-                    continuar = false;
-                    break;
+                    scanner.close(); // Fechar o Scanner corretamente fora do loop
+                    return;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
+                    break;
             }
         }
-        scanner.close();
     }
 }
